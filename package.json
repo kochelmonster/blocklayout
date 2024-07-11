@@ -1,0 +1,31 @@
+{
+  "name": "blocklayout",
+  "version": "1.0.0",
+  "description": "",
+  "exports": {
+    "./svelte": "./dist/svelte.js"
+  },
+  "files": [
+    "dist/",
+    "bin/",
+    "!src/"
+  ],
+  "type": "module",
+  "bin": {
+    "blocklayout": "./bin/blocklayout"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepublishOnly": "coffee --compile --output dist src",
+    "convert": "coffee --compile --output dist src"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "coffeescript": "^2.7.0"
+  },
+  "dependencies": {
+    "jsdom": "^24.1.0"
+  }
+}
