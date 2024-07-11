@@ -33,7 +33,11 @@ blocklayout transforms it to this
 
 and this is the result
 
-<div style="height: 20em; width: 20em; display: grid;"><div style="background: blue; grid-column-start: 1; grid-column-end: 3; grid-row-start: 1; grid-row-end: 2;"></div><div style="background: green; grid-column-start: 3; grid-column-end: 4; grid-row-start: 1; grid-row-end: 3;"></div><div style="background: red; grid-column-start: 1; grid-column-end: 2; grid-row-start: 2; grid-row-end: 4;"></div><div style="background: grey; grid-column-start: 2; grid-column-end: 3; grid-row-start: 2; grid-row-end: 3;"></div><div style="background: yellow; grid-column-start: 2; grid-column-end: 4; grid-row-start: 3; grid-row-end: 4;"></div></div>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <foreignObject width="200" height="200">
+<div style="height: 20em; width: 20em; display: grid;"><div style="background: blue; grid-column-start: 1; grid-column-end: 3; grid-row-start: 1; grid-row-end: 2;"></div><div style="background: green; grid-column-start: 3; grid-column-end: 4; grid-row-start: 1; grid-row-end: 3;"></div><div style="background: red; grid-column-start: 1; grid-column-end: 2; grid-row-start: 2; grid-row-end: 4;"></div><div style="background: grey; grid-column-start: 2; grid-column-end: 3; grid-row-start: 2; grid-row-end: 3;"></div><div style="background: yellow; grid-column-start: 2; grid-column-end: 4; grid-row-start: 3; grid-row-end: 4;"></div></div>    
+  </foreignObject>
+</svg>
 
 ## Usage
 
