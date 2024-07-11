@@ -1,26 +1,33 @@
 {
   "name": "blocklayout",
   "version": "1.0.0",
-  "description": "",
+  "description": "A html preprocessor to transform a simple block graphic into a flex grid.",
   "exports": {
     "./svelte": "./dist/svelte.js"
   },
   "files": [
     "dist/",
     "bin/",
-    "!src/"
+    "examples/"
   ],
   "type": "module",
   "bin": {
-    "blocklayout": "./bin/blocklayout"
+    "blocklayout": "./bin/blocklayout.js"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "prepublishOnly": "coffee --compile --output dist src",
     "convert": "coffee --compile --output dist src"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "design",
+    "prototyping",
+    "layout",
+    "library",
+    "html",
+    "preprocessor"
+  ],
+  "homepage": "https://github.com/kochelmonster/blocklayout",
+  "author": "kochelmonster",
   "license": "MIT",
   "devDependencies": {
     "coffeescript": "^2.7.0"
