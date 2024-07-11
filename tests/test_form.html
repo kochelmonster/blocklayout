@@ -21,6 +21,124 @@ lto  |to{t}{1}
 <input data-field="from" id="from" tabindex="1"/>
 <label data-field="lto" for="to">To</label>
 <input data-field="to" id="to" tabindex="1"/>
+
+<form>
+    <h1>Payment form</h1>
+    <p>
+      Required fields are followed by
+      <strong><span aria-label="required">*</span></strong>.
+    </p>
+
+    <div data-grid="10">
+    contact{1}|payment{2}
+    [1]       |
+    </div>
+
+    <section data-grid data-field="contact">
+    cheader    <!-- comment-->
+    title{c}{1}
+    lname
+    name{2}
+    lemail
+    email{3}
+    lpassword
+    password{4}
+    </section>
+          
+    <h2 data-field="cheader">Contact information</h2>
+    <fieldset data-field="title">
+        <legend>Title</legend>
+        <ul>
+            <li>
+            <label for="title_1">
+                <input type="radio" id="title_1" name="title" value="A" tabindex="1"/>
+                Ace
+            </label>
+            </li>
+            <li>
+            <label for="title_2">
+                <input type="radio" id="title_2" name="title" value="K" tabindex="2"/>
+                King
+            </label>
+            </li>
+            <li>
+            <label for="title_3">
+                <input type="radio" id="title_3" name="title" value="Q" tabindex="3"/>
+                Queen
+            </label>
+            </li>
+        </ul>
+    </fieldset>
+
+    <label data-field="lname" for="name">
+        <span>Name: </span>
+        <strong><span aria-label="required">*</span></strong>
+    </label>
+    <input data-field="name" type="text" id="name" name="username" required tabindex="1"/>
+      
+    <label data-field="lemail" for="mail">
+        <span>Email: </span>
+        <strong><span aria-label="required">*</span></strong>
+    </label>
+    <input data-field="email" type="email" id="mail" name="usermail" required tabindex="1"/>
+    
+    <label data-field="lpassword" for="pwd">
+        <span>Password: </span>
+        <strong><span aria-label="required">*</span></strong>
+    </label>
+    <input data-field="password" type="password" id="pwd" name="password" required tabindex="1"/>
+    
+    
+    <section data-grid data-field="payment">
+    pheader
+    ltype
+    type{1}
+    lnumber
+    number{2}
+    lexpiration
+    expiration{3}
+                 |[1]
+    pay{c}{4}
+    </section>
+
+    <h2 data-field="pheader">Payment information</h2>
+
+    <label data-field="ltype" for="card">
+        <span>Card type:</span>
+    </label>
+    <select data-field="type" id="card" name="usercard" tabindex="1">
+        <option value="visa">Visa</option>
+        <option value="mc">Mastercard</option>
+        <option value="amex">American Express</option>
+    </select>
+
+    <label data-field="lnumber" for="number">
+        <span>Card number:</span>
+        <strong><span aria-label="required">*</span></strong>
+    </label>
+    <input data-field="number" type="tel" id="number" name="cardnumber" required tabindex="1"/>
+
+    <label data-field="lexpiration" for="expiration">
+        <span>Expiration date:</span>
+        <strong><span aria-label="required">*</span></strong>
+    </label>
+    <input
+        data-field="expiration"
+        type="text"
+        id="expiration"
+        name="expiration"
+        required
+        placeholder="MM/YY"
+        pattern="^(0[1-9]|1[0-2])\/([0-9]{2})$" 
+        tabindex="1"/>
+    
+    <button data-field="pay" type="submit" tabindex="1">Validate the payment</button>
+
+    
+    </form>
+    
+
+
 </body>
 
 </html>
