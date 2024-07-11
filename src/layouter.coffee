@@ -1,5 +1,9 @@
 import { JSDOM } from "jsdom"
 
+
+export grid_attrib = "data-grid"
+export field_attrib = "data-field"
+
 jsdom = new JSDOM("")
 
 export create_element = (html) ->
@@ -89,7 +93,7 @@ class RowSpan extends Cell
 
 
 class AlignedCell extends DOMCell
-    REGEXP: /(\{(?<align>[lcrj]?[tmbse]?)\})?/
+    REGEXP: /(\{(?<align>[lcrjtmbse]{1,2})\})?/
 
     alignment: ''
     # cells alignment
@@ -123,10 +127,9 @@ class AlignedCell extends DOMCell
 
 class Field extends AlignedCell
     REGEXP: new RegExp(
-        "(?<field>([^\\d\\W][ \\w]*))"        \ # field
+        "(?<field>([^\\d\\W][ -\\w]*))"        \ # field
         + AlignedCell.prototype.REGEXP.source \ # alignment
-        + "(\\{(?<tabindex>\\d+)\\})?"        \ # tabindex
-        + "([*]?)")                             # autofocus
+        + "(\\{(?<tabindex>\\d+)\\})?")         # tabindex
 
     constructor: (fields) ->
         super(fields)
@@ -198,8 +201,9 @@ class Parser
 
     render: (fields) ->
         result = create_element(@design.outerHTML)
-        result.removeAttribute("grid")
-        result.removeAttribute("field")
+        tabindex = parseInt(result.getAttribute(grid_attrib) or 1)
+        result.removeAttribute(grid_attrib)
+        result.removeAttribute(field_attrib)
 
         if @column_stretchers.length
             cs = ((if c then "#{c}fr" else "auto") for c in @column_stretchers)
@@ -232,7 +236,6 @@ class Parser
                 result.append(element)
 
         if tabs.length
-            tabindex = 1
             tabs.sort((a, b)->a.base-b.base)
             for container in tabs
                 for [_, el] in container.children

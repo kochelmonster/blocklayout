@@ -5,7 +5,7 @@ import { argv, exit, stdout, stderr } from 'node:process';
 import fs from "node:fs";
 
 if (argv.length < 3) {
-  stderr.write("usage blocklayout input_file\n");
+  stderr.write("usage: blocklayout input_file\n");
   exit(1);
 }
 

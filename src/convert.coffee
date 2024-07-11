@@ -1,9 +1,5 @@
 import { JSDOM,  } from "jsdom"
-import { layout_grid, create_element } from "./layouter.js"
-
-grid_attrib = "data-grid"
-field_attrib = "data-field"
-
+import { layout_grid, create_element, grid_attrib, field_attrib } from "./layouter.js"
 
 class FieldBlock
     constructor: (@block) ->
