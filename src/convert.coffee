@@ -10,6 +10,21 @@ class FieldBlock
         return result.outerHTML
 
 
+hierachy_level = (element) ->
+    level = 0
+    while element
+        level++
+        element = element.parentElement
+    return level
+
+
+inside_field = (element) ->
+    while element
+        return true if element.hasAttribute("data-field")
+        element = element.parentElement
+    return false
+
+
 export convert = (source) ->
     locations = []
     dom = new JSDOM(source, {includeNodeLocations: true})
@@ -20,8 +35,10 @@ export convert = (source) ->
             converted: false
             result: source
 
+    sorted_grids = []
     for g in grids
         g.layouter = layout_grid(g)
+        sorted_grids.push([hierachy_level(g), g])
 
     divs = element.querySelectorAll("[#{field_attrib}]")
     fields = {}
@@ -34,12 +51,18 @@ export convert = (source) ->
             replace: ""
         fields[f.getAttribute(field_attrib)] = f
 
-    for g in grids
+    sorted_grids.sort((a, b)->b[0]-a[0])
+    for [_, g] in sorted_grids
         if not g.getAttribute(field_attrib)?
             result = g.layouter.render(fields, parseInt(g.tabindex or 1))
-            locations.push
-                location: dom.nodeLocation(g)
-                replace: create_element(result).outerHTML
+
+            if inside_field(g)
+                # updates the node of the field
+                g.replaceWith(create_element(result))
+            else
+                locations.push
+                    location: dom.nodeLocation(g)
+                    replace: create_element(result).outerHTML
 
     # change the source from back
     locations.sort (a, b) ->

@@ -1,6 +1,6 @@
 {
   "name": "blocklayout",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A html preprocessor to transform a simple block graphic into a flex grid.",
   "exports": {
     "./svelte": "./dist/svelte.js"
