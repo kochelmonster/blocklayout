@@ -19,6 +19,7 @@ hierachy_level = (element) ->
 
 
 inside_field = (element) ->
+    element = element.parentElement
     while element
         return true if element.hasAttribute("data-field")
         element = element.parentElement
@@ -46,9 +47,14 @@ export convert = (source) ->
         if not f.getAttribute(grid_attrib)?
             f.layouter = new FieldBlock(f)
 
-        locations.push
-            location: dom.nodeLocation(f)
-            replace: ""
+        if inside_field(f)
+            f.remove()
+        else
+            # the field is already removed
+            locations.push
+                location: dom.nodeLocation(f)
+                replace: ""
+
         fields[f.getAttribute(field_attrib)] = f
 
     sorted_grids.sort((a, b)->b[0]-a[0])
