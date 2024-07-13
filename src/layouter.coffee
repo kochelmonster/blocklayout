@@ -4,11 +4,32 @@ import { JSDOM } from "jsdom"
 export grid_attrib = "data-grid"
 export field_attrib = "data-field"
 
-jsdom = new JSDOM("")
+
+export hack_tag_names = (dom, source) ->
+    ### 
+    A bad hack:
+    jsdom convert all tagNames to lower case 
+    that is catastrophic for svelte
+    ###
+
+    # Iterate throug all elements
+    all_elements = dom.window.document.getElementsByTagName("*")
+    for el in all_elements
+        a = el.tagName
+        b = dom.nodeLocation(el)
+        if b?
+            # check if the tag name in the source is different to jsdom
+            realname = source.slice(b.startOffset+1, b.startOffset+1+el.tagName.length)
+            if el.tagName.toLowerCase() != realname
+                # access the internal implementation and change back to the original name
+                symImpl = Reflect.ownKeys(el)[0]
+                el[symImpl]._localName = realname
+    return
 
 export create_element = (html) ->
-    jsdom.window.document.body.innerHTML = html
-    return jsdom.window.document.body.firstChild
+    dom = new JSDOM(html, {includeNodeLocations: true})
+    hack_tag_names(dom, html)
+    return dom.window.document.body.firstChild
 
 
 class Cell

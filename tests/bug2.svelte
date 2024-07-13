@@ -1,4 +1,3 @@
-
 <div data-grid class="main-layout">
     left|content|right|[1]
     [1] |       |[1]
@@ -11,6 +10,7 @@
             climbing{c}|apartments{c}|booking{c}
         </header>
         <a data-field="climbing">Climbing</a>
+        <Menu></Menu>
         
     <div class="video-wrapper">
           <video><source src="intro.mp4" type="video/mp4"/></video>

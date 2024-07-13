@@ -1,5 +1,6 @@
 import { JSDOM,  } from "jsdom"
-import { layout_grid, create_element, grid_attrib, field_attrib } from "./layouter.js"
+import { layout_grid, create_element, grid_attrib, field_attrib, 
+         hack_tag_names } from "./layouter.js"
 
 class FieldBlock
     constructor: (@block) ->
@@ -30,12 +31,17 @@ export convert = (source) ->
     locations = []
     dom = new JSDOM(source, {includeNodeLocations: true})
     element = dom.window.document
+                
     grids = element.querySelectorAll("[#{grid_attrib}]")
     if not grids.length
         return
             converted: false
             result: source
 
+    hack_tag_names(dom, source)
+    
+    # grid that are deeper in the tree are potentially inside a field
+    # render them first    
     sorted_grids = []
     for g in grids
         g.layouter = layout_grid(g)
@@ -48,9 +54,9 @@ export convert = (source) ->
             f.layouter = new FieldBlock(f)
 
         if inside_field(f)
+            # remove fom the parent field
             f.remove()
         else
-            # the field is already removed
             locations.push
                 location: dom.nodeLocation(f)
                 replace: ""
@@ -63,7 +69,7 @@ export convert = (source) ->
             result = g.layouter.render(fields, parseInt(g.tabindex or 1))
 
             if inside_field(g)
-                # updates the node of the field
+                # updates the grid inside the field
                 g.replaceWith(create_element(result))
             else
                 locations.push
